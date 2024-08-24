@@ -1,0 +1,2 @@
+# synth
+Discord Music Bot
