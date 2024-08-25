@@ -20,4 +20,14 @@ client.on(Events.MessageCreate, message => {
   }
 });
 
+client.on(Events.InteractionCreate, async interaction => {
+  if (!interaction.isCommand()) return;
+
+  const { commandName } = interaction;
+
+  if (commandName === 'ping') {
+    await interaction.reply('Pong!');
+  }
+});
+
 client.login(process.env.BOT_TOKEN);
