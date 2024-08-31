@@ -6,6 +6,10 @@ const commands = [
     name: 'ping',
     description: 'Replies with pong!',
   },
+  {
+    name: 'play',
+    description: 'Plays a song from YouTube.',
+  }
 ];
 
 const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
@@ -19,13 +23,3 @@ try {
 } catch (error) {
   console.error('Failed to register commands:', error);
 }
-
-// try {
-// 	await rest.post(Routes.channelMessages(procoss.env.CHANNEL_ID), {
-// 		body: {
-// 			content: 'pong',
-// 		},
-// 	});
-// } catch (error) {
-// 	console.error(error);
-// }
