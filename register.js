@@ -1,16 +1,21 @@
 import 'dotenv/config';
 import { REST, Routes } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+
+const pingCommand = new SlashCommandBuilder()
+  .setName('ping')
+  .setDescription('Replies with Pong!');
+
+const playCommand = new SlashCommandBuilder()
+  .setName('play')
+  .setDescription('Plays a song from YouTube.')
+  .addStringOption(option => option.setName('link').setDescription('The youtube link to play.').setRequired(true));
+console.log(playCommand.toJSON());
 
 const commands = [
-  {
-    name: 'ping',
-    description: 'Replies with pong!',
-  },
-  {
-    name: 'play',
-    description: 'Plays a song from YouTube.',
-  }
-];
+  pingCommand.toJSON(),
+  playCommand.toJSON(),
+]
 
 const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
 

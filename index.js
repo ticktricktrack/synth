@@ -28,8 +28,8 @@ client.on(Events.MessageCreate, message => {
   }
 });
 
+
 client.on(Events.InteractionCreate, async interaction => {
-  console.log(interaction);
   if (!interaction.isCommand()) return;
 
   const { commandName } = interaction;
@@ -42,13 +42,14 @@ client.on(Events.InteractionCreate, async interaction => {
     console.log('Playing a song from YouTube.');
     const voiceChannel = interaction.member.voice.channel;
     const player = distube.voices
-    const song = interaction.options.getString("input", true);
+    const song = interaction.options.getString("link", true);
+    console.log(`Song: ${song}`);
 
-    // player.join(voiceChannel);
-    // player.get(interaction).setSelfDeaf(true);
+    player.join(voiceChannel);
+    player.get(interaction).setSelfDeaf(true);
 
-    // await distube.play(voiceChannel, song);
-    // await interaction.reply('Playing a song from YouTube.');
+    await distube.play(voiceChannel, song);
+    await interaction.reply('Playing a song from YouTube.');
   }
 });
 
