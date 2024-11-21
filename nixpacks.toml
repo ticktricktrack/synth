@@ -1,5 +1,5 @@
 providers = []
-buildImage = 'ghcr.io/railwayapp/nixpacks:ubuntu-1731369831'
+buildImage = 'ghcr.io/railwayapp/nixpacks:ubuntu-1727136237'
 
 [variables]
 CI = 'true'
@@ -20,7 +20,7 @@ paths = ['/app/node_modules/.bin']
 nixPkgs = [
     'nodejs_18',
     'npm-9_x',
-    'ffmpeg'
+    'ffmpeg',
 ]
 nixOverlays = ['https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz']
 nixpkgsArchive = 'e05605ec414618eab4a7a6aea8b38f6fbbcc8f08'
