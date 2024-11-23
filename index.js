@@ -2,13 +2,21 @@ import 'dotenv/config';
 import { Client, Events, GatewayIntentBits } from 'discord.js';
 import { joinVoiceChannel, createAudioPlayer, createAudioResource } from '@discordjs/voice';
 import { YtdlCore, toPipeableStream } from '@ybd-project/ytdl-core';
+import { fetch, ProxyAgent } from 'undici';
 
 import { DisTube } from "distube";
 // import { YouTubePlugin } from "@distube/youtube";
 
+const PROXY = new ProxyAgent(process.env.PROXY_URL);
 const ytdl = new YtdlCore({
   hl: 'en',
   gl: 'US',
+  fetcher: (url, options) => {
+    return fetch(url, {
+        ...options,
+        dispatcher: PROXY,
+    })
+  }
 })
 
 const client = new Client({
@@ -42,12 +50,11 @@ client.on(Events.InteractionCreate, async interaction => {
     })
 
     const player = createAudioPlayer();
-
     const stream = await ytdl.download(song, {
       filter: 'audioonly',
       quality: 'highestaudio',
-      poToken: process.env.PO_TOKEN,
-      visitorData: process.env.VISITOR_DATA,
+      // poToken: process.env.PO_TOKEN,
+      // visitorData: process.env.VISITOR_DATA,
     })
     const pipeableStream = toPipeableStream(stream)
     const resource = createAudioResource(pipeableStream);
